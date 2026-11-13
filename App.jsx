@@ -32,13 +32,13 @@ export default function App() {
     fetch("https://opentdb.com/api.php?amount=5&type=multiple")
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Gagal mengambil pertanyaan.");
+          throw new Error("Failed to retrieve the question.");
         }
         return response.json();
       })
       .then((data) => {
         if (data.response_code !== 0 || data.results.length !== 5) {
-          throw new Error("Pertanyaan belum tersedia.");
+          throw new Error("Questions are not yet available.");
         }
 
         const newQuestions = data.results.map((item) => {
@@ -59,7 +59,9 @@ export default function App() {
         setScreen("quiz");
       })
       .catch(() => {
-        setError("Gagal memuat pertanyaan. Periksa koneksi dan coba lagi.");
+        setError(
+          "Failed to load the question. Check your connection and try again.",
+        );
         setScreen("error");
       });
   }
