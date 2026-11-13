@@ -2,6 +2,13 @@
 
 Quizzical is a React trivia app that fetches five multiple-choice questions from the [Open Trivia Database](https://opentdb.com/).
 
+## Technologies
+
+- React
+- Webpack and Babel
+- `he` for decoding HTML entities
+- Open Trivia Database API
+
 ## Features
 
 - Five randomly retrieved questions per game
@@ -38,13 +45,6 @@ For automatic rebuilding while editing:
 ```bash
 npm run watch
 ```
-
-## Technologies
-
-- React
-- Webpack and Babel
-- `he` for decoding HTML entities
-- Open Trivia Database API
 
 ## How to play
 
