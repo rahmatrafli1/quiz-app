@@ -1,9 +1,5 @@
 const webpack = require("webpack");
-const env = require("dotenv").config();
-
-if (env.error) {
-  throw env.error;
-}
+require("dotenv").config();
 
 const amount = process.env.QUIZ_AMOUNT;
 const type = process.env.QUIZ_TYPE;
