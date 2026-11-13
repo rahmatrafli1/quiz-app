@@ -15,6 +15,9 @@ function shuffle(items) {
   return shuffled;
 }
 
+const QUIZ_AMOUNT = Number(process.env.QUIZ_AMOUNT);
+const QUIZ_TYPE = process.env.QUIZ_TYPE;
+
 export default function App() {
   const [screen, setScreen] = useState("start");
   const [questions, setQuestions] = useState([]);
@@ -29,7 +32,7 @@ export default function App() {
     setQuestions([]);
     setAnswers([]);
 
-    fetch("https://opentdb.com/api.php?amount=5&type=multiple")
+    fetch(`https://opentdb.com/api.php?amount=${QUIZ_AMOUNT}&type=${QUIZ_TYPE}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to retrieve the question.");
@@ -37,7 +40,7 @@ export default function App() {
         return response.json();
       })
       .then((data) => {
-        if (data.response_code !== 0 || data.results.length !== 5) {
+        if (data.response_code !== 0 || data.results.length !== QUIZ_AMOUNT) {
           throw new Error("Questions are not yet available.");
         }
 
@@ -77,7 +80,8 @@ export default function App() {
   }
 
   const allAnswered =
-    questions.length === 5 && answers.every((answer) => answer !== null);
+    questions.length === QUIZ_AMOUNT &&
+    answers.every((answer) => answer !== null);
 
   const score = questions.reduce(
     (total, question, index) =>

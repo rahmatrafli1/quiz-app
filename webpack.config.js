@@ -1,3 +1,21 @@
+const webpack = require("webpack");
+const env = require("dotenv").config();
+
+if (env.error) {
+  throw env.error;
+}
+
+const amount = process.env.QUIZ_AMOUNT;
+const type = process.env.QUIZ_TYPE;
+
+if (!/^(?:[1-9]|[1-4]\d|50)$/.test(amount || "")) {
+  throw new Error("QUIZ_AMOUNT must be an integer between 1 and 50.");
+}
+
+if (!["multiple", "boolean"].includes(type)) {
+  throw new Error("QUIZ_TYPE must be multiple or boolean.");
+}
+
 module.exports = {
   output: {
     filename: "[name].pack.js",
@@ -23,4 +41,10 @@ module.exports = {
   entry: {
     index: "./index",
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      "process.env.QUIZ_AMOUNT": JSON.stringify(amount),
+      "process.env.QUIZ_TYPE": JSON.stringify(type),
+    }),
+  ],
 };
